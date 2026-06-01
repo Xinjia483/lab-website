@@ -23,13 +23,15 @@ permalink: /
       <a href="{{ site.socialLinks[0].url | withBaseUrl }}">Google Scholar</a>
       <a href="{{ site.contact.profileLinks[0].url | withBaseUrl }}">Curriculum Vitae</a>
       <a href="{{ site.photoImage | withBaseUrl }}">Photo</a>
+      <button type="button" class="hero-links__button" data-dialog-open="bio-dialog">Bio</button>
     </p>
   </div>
 </section>
 
-<section class="section section--home-bio">
+<section class="section section--research-focus">
+  <h2>Research Focus of the Lab</h2>
   <div class="stack">
-    {{ siteText.homeBio | markdown | safe }}
+    {{ siteText.researchFocus | markdown | safe }}
   </div>
 </section>
 
@@ -55,7 +57,44 @@ permalink: /
   </div>
 </section>
 
+<dialog class="bio-dialog" id="bio-dialog" aria-labelledby="bio-dialog-title">
+  <div class="bio-dialog__inner">
+    <div class="bio-dialog__head">
+      <h2 id="bio-dialog-title">Bio</h2>
+      <button type="button" class="bio-dialog__close" data-dialog-close aria-label="Close bio">&times;</button>
+    </div>
+    <div class="stack bio-dialog__body">
+      {{ siteText.homeBio | markdown | safe }}
+    </div>
+  </div>
+</dialog>
+
 <section class="section section--about">
   <h2>About Me</h2>
   {{ siteText.aboutMe | markdown | safe }}
 </section>
+
+<script>
+  (() => {
+    const dialog = document.getElementById("bio-dialog");
+    if (!dialog || typeof dialog.showModal !== "function") return;
+
+    document.querySelectorAll('[data-dialog-open="bio-dialog"]').forEach((trigger) => {
+      trigger.addEventListener("click", () => dialog.showModal());
+    });
+
+    dialog.querySelectorAll("[data-dialog-close]").forEach((closer) => {
+      closer.addEventListener("click", () => dialog.close());
+    });
+
+    dialog.addEventListener("click", (event) => {
+      const rect = dialog.getBoundingClientRect();
+      const inside =
+        event.clientX >= rect.left &&
+        event.clientX <= rect.right &&
+        event.clientY >= rect.top &&
+        event.clientY <= rect.bottom;
+      if (!inside) dialog.close();
+    });
+  })();
+</script>

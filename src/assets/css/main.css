@@ -360,9 +360,108 @@ strong {
   max-width: none;
 }
 
-.section--home-bio .stack {
+.section--research-focus .stack {
   width: 100%;
   max-width: none;
+  text-align: justify;
+}
+
+.hero-links__button {
+  appearance: none;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  color: var(--color-accent);
+  font: inherit;
+  letter-spacing: inherit;
+  cursor: pointer;
+}
+
+.hero-links__button:hover,
+.hero-links__button:focus-visible {
+  color: var(--color-text);
+}
+
+.bio-dialog {
+  width: min(92vw, 40rem);
+  max-height: 85vh;
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius);
+  background: var(--color-surface);
+  color: var(--color-text);
+  box-shadow: 0 24px 60px rgba(36, 23, 26, 0.28);
+  overflow: hidden;
+}
+
+.bio-dialog::backdrop {
+  background: rgba(36, 23, 26, 0.45);
+  backdrop-filter: blur(2px);
+}
+
+.bio-dialog[open] {
+  animation: bio-dialog-in 0.18s ease-out;
+}
+
+.bio-dialog[open]::backdrop {
+  animation: bio-backdrop-in 0.18s ease-out;
+}
+
+@keyframes bio-dialog-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes bio-backdrop-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.bio-dialog__inner {
+  max-height: 85vh;
+  padding: var(--space-6);
+  overflow-y: auto;
+}
+
+.bio-dialog__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-4);
+  margin-bottom: var(--space-3);
+}
+
+.bio-dialog__head h2 {
+  margin-bottom: 0;
+}
+
+.bio-dialog__close {
+  appearance: none;
+  border: 0;
+  padding: 0 0.25rem;
+  background: transparent;
+  color: var(--color-muted);
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.bio-dialog__close:hover,
+.bio-dialog__close:focus-visible {
+  color: var(--color-accent);
+}
+
+.bio-dialog__body {
   text-align: justify;
 }
 
